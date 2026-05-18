@@ -421,7 +421,7 @@ body::before {
         <div class="corner-decor br"></div>
         <div class="acc-card-top">Account A</div>
         <div class="acc-card-amount">$25K</div>
-        <div class="acc-card-label">Funded account · Target $125K</div>
+        <div class="acc-card-label">Funded account · Target +$800</div>
         <div class="acc-card-badge badge-a">LOT SIZE · 0.41</div>
         <div class="acc-card-badge badge-a" style="margin-top:6px;">100% PROFIT SPLIT</div>
       </div>
@@ -431,7 +431,7 @@ body::before {
         <div class="corner-decor br"></div>
         <div class="acc-card-top">Account B</div>
         <div class="acc-card-amount">$10K</div>
-        <div class="acc-card-label">Funded account · Income stream</div>
+        <div class="acc-card-label">Funded account · Target +$300</div>
         <div class="acc-card-badge badge-b">LOT SIZE · 0.16</div>
         <div class="acc-card-badge badge-b" style="margin-top:6px;">80% PROFIT SPLIT</div>
       </div>
@@ -478,6 +478,14 @@ body::before {
         <div style="display:flex;align-items:center;gap:8px;background:var(--bg4);border:0.5px solid var(--border);border-radius:8px;padding:8px 14px;">
           <span style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text2);">SL</span>
           <span style="font-family:'Orbitron',monospace;font-size:13px;color:var(--text);">15 pips</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;background:var(--bg4);border:0.5px solid rgba(6,255,165,0.25);border-radius:8px;padding:8px 14px;">
+          <span style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text2);">TP (3:1)</span>
+          <span style="font-family:'Orbitron',monospace;font-size:13px;color:var(--green);">45 pips</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;background:var(--bg4);border:0.5px solid rgba(6,255,165,0.25);border-radius:8px;padding:8px 14px;">
+          <span style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text2);">Max profit/trade</span>
+          <span id="maxProfitPerTrade" style="font-family:'Orbitron',monospace;font-size:13px;color:var(--green);">$184.50</span>
         </div>
         <div style="display:flex;align-items:center;gap:8px;background:var(--bg4);border:0.5px solid var(--border);border-radius:8px;padding:8px 14px;">
           <span style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text2);">Max loss/trade</span>
@@ -536,8 +544,8 @@ body::before {
 
 <script>
 const ACCS = {
-  A: { funding:25000, target:125000, maxLoss:2500, dailyLoss:1250, tradeCap:750,  lots:0.41, split:1.0,  label:'ACCOUNT A · $25K' },
-  B: { funding:10000, target:30000,  maxLoss:1000, dailyLoss:500,  tradeCap:300,  lots:0.16, split:0.80, label:'ACCOUNT B · $10K'  }
+  A: { funding:25000, target:25800, maxLoss:2500, dailyLoss:1250, tradeCap:750,  lots:0.41, split:1.0,  label:'ACCOUNT A · $25K' },
+  B: { funding:10000, target:10300, maxLoss:1000, dailyLoss:500,  tradeCap:300,  lots:0.16, split:0.80, label:'ACCOUNT B · $10K'  }
 };
 
 let acc  = 'A';
@@ -642,8 +650,10 @@ function renderHero() {
   document.getElementById('startingSub').textContent = trades().length + ' trade' + (trades().length !== 1 ? 's' : '') + ' logged';
   const lotEl = document.getElementById('lotDisplay');
   const mlEl  = document.getElementById('maxLossPerTrade');
+  const mpEl  = document.getElementById('maxProfitPerTrade');
   if (lotEl) lotEl.textContent = c().lots;
   if (mlEl)  mlEl.textContent  = '$' + (c().lots * 15 * 10).toFixed(2);
+  if (mpEl)  mpEl.textContent  = '$' + (c().lots * 15 * 10 * 3).toFixed(2);
 }
 
 function renderMetrics() {
